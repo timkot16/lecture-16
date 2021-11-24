@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+<!--    <changeSet id="1" author="kotkovski">-->
+<!--        <sqlFile path="liquibase/db/migration/V1__Create_cars_table.sql"/>-->
+<!--    </changeSet>-->
+<!--    <changeSet id="2" author="kotkovski">-->
+<!--        <sqlFile path="liquibase/db/migration/V2__Create_customer_table.sql"/>-->
+<!--    </changeSet>-->
+    <changeSet id="1" author="kotkovski">
+        <preConditions>
+            <not>
+                <tableExists tableName="Cars"/>
+            </not>
+        </preConditions>
+        <createTable tableName="Cars">
+            <column name="id" type="int(11)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="model" type="varchar(15)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="vin_code" type="varchar(17)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="year" type="int(4)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="number" type="varchar(7)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="kotkovski">
+        <preConditions>
+            <not>
+                <tableExists tableName="Customers"/>
+            </not>
+        </preConditions>
+        <createTable tableName="Customers">
+            <column name="id" type="int(11)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(15)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="last_name" type="varchar(15)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="tel_number" type="varchar(15)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="car_id" type="int(11)">
+                <constraints referencedColumnNames="Car.id"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="kotkovski">
+        <sql>
+            INSERT INTO electronic_service_book.Cars (model, vin_code, year, number)
+            VALUES ('KIA', 'KNAPE813DBK010143', 2010, '3424PT7'),
+                   ('FORD', 'WF0XXXTTFXBM87819', 2011, 'AM03397'),
+                   ('CITROEN', 'VF7CHRHYB39196164', 2002, '0228OA5'),
+                   ('FIAT', 'ZFA19800004089260', 2009, '5599PT7');
+        </sql>
+    </changeSet>
+    <changeSet id="4" author="kotkovski">
+        <sql>
+            INSERT INTO electronic_service_book.Customers (first_name, last_name, tel_number, car_id)
+            VALUES ('Alex', 'Volnov', '375445321156', 1),
+                   ('Roman', 'Kurov', '375253675483', 2),
+                   ('Alla', 'Miheeva', '375294483754', 3);
+        </sql>
+    </changeSet>
+</databaseChangeLog>
