@@ -1,5 +1,6 @@
-#Hometask lecture-16
-###Tasks
+# Hometask lecture-16
+
+### Tasks
 
 - git repo - done
 - README file with rules from lecture - done
@@ -11,11 +12,11 @@
 - Create DAO (use EntityManager) for POJOs with 2 method: save(pojo) and find(id) - done
 - Tests - done
 
-###Project setup
+### Project setup
 
 > mvn clean package
 
 > docker-compose up
 
->mvn liquibase:update
+> mvn liquibase:update
 
